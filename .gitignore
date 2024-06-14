@@ -1,0 +1,33 @@
+# Exclude the myenv directory
+myenv/
+.idea/
+# Python specific ignores
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.eggs/
+*.egg
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+env/
+venv/
+ENV/
+VENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# VS Code specific ignores
+.vscode/
+
+# macOS specific ignores
+.DS_Store
+
+# General ignores
+*.swp
