@@ -12,11 +12,13 @@ def get_pokemons(first_pokemon=1, last_pokemon=11):
             data = response.json()
             types = [t['type']['name'] for t in data['types']]
             hp = next(stat['base_stat'] for stat in data['stats'] if stat['stat']['name'] == 'hp')
+            sprite = data['sprites']['other']['official-artwork']['front_default']
             pokemons.append({
                 'id': i,
                 'name': data['name'],
                 'hp': hp,
-                'types': types
+                'types': types,
+                'sprite': sprite  # Cambiado de artWork a sprite
             })
             print(f'Fetching pokemon {i}: {data["name"]}')
         else:
@@ -41,6 +43,10 @@ def insert_pokemons(pokemons):
     for pokemon in pokemons:
         new_page_data = {
             "parent": {"database_id": NOTION_DATABASE_ID},
+            "cover": {
+                "type": "external",
+                "external": {"url": pokemon["sprite"]}
+            },
             "properties": {
                 "ID": {
                     "number": pokemon['id']
@@ -61,7 +67,7 @@ def insert_pokemons(pokemons):
                     "multi_select": [
                         {"name": type_} for type_ in pokemon['types']
                     ]
-                }
+                },
             }
         }
 
